@@ -2,7 +2,7 @@ name: Perform-heartbeat-requests
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "0 */1 * * *"
 
 env:
   RENDER_PERSONA: ${{ secrets.RENDER_PERSONA }}
