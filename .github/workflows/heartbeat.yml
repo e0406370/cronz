@@ -1,0 +1,23 @@
+name: Run-tests-using-Pytest
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+
+env:
+  RENDER_PERSONA: $ {{ secrets.RENDER_PERSONA }}
+  RENDER_MARKUAPI: $ {{ secrets.RENDER_MARKUAPI }}
+
+jobs:
+  heartbeat:
+
+    steps:
+      - name: Perform hourly heartbeat for 'persona'
+        run |
+            req=$(curl -s $RENDER_PERSONA)
+            echo "$req"
+            
+      - name: Perform hourly heartbeat for 'markuapi'
+        run |
+            req=$(curl -s $RENDER_MARKUAPI)
+            echo "$req"
