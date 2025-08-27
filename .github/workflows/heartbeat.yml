@@ -1,23 +1,24 @@
-name: Run-tests-using-Pytest
+name: Perform-heartbeat-requests
 
 on:
   schedule:
     - cron: "*/5 * * * *"
 
 env:
-  RENDER_PERSONA: $ {{ secrets.RENDER_PERSONA }}
-  RENDER_MARKUAPI: $ {{ secrets.RENDER_MARKUAPI }}
+  RENDER_PERSONA: ${{ secrets.RENDER_PERSONA }}
+  RENDER_MARKUAPI: ${{ secrets.RENDER_MARKUAPI }}
 
 jobs:
   heartbeat:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Perform hourly heartbeat for 'persona'
-        run |
+        run: |
             req=$(curl -s $RENDER_PERSONA)
             echo "$req"
             
       - name: Perform hourly heartbeat for 'markuapi'
-        run |
+        run: |
             req=$(curl -s $RENDER_MARKUAPI)
             echo "$req"
