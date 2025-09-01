@@ -7,6 +7,7 @@ on:
 env:
   RENDER_PERSONA: ${{ secrets.RENDER_PERSONA }}
   RENDER_MARKUAPI: ${{ secrets.RENDER_MARKUAPI }}
+  VERCEL_KURYANA: ${{ secrets.VERCEL_KURYANA }}
 
 jobs:
   heartbeat:
@@ -21,4 +22,9 @@ jobs:
       - name: Perform hourly heartbeat for 'markuapi'
         run: |
             req=$(curl -s $RENDER_MARKUAPI)
+            echo "$req"
+
+      - name: Perform hourly heartbeat for 'kuryana'
+        run: |
+            req=$(curl -s $VERCEL_KURYANA)
             echo "$req"
