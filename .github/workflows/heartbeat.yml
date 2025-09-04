@@ -2,29 +2,23 @@ name: Perform-heartbeat-requests
 
 on:
   schedule:
-    - cron: "0 */1 * * *"
+    - cron: "*/15 * * * *" # runs every 15th minute
 
 env:
+  RENDER_MARKUAPIZ: ${{ secrets.RENDER_MARKUAPIZ }}
   RENDER_PERSONA: ${{ secrets.RENDER_PERSONA }}
-  RENDER_MARKUAPI: ${{ secrets.RENDER_MARKUAPI }}
-  VERCEL_KURYANA: ${{ secrets.VERCEL_KURYANA }}
 
 jobs:
   heartbeat:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Perform hourly heartbeat for 'persona'
+      - name: Perform heartbeat for 'markuapiz'
         run: |
-            req=$(curl -s $RENDER_PERSONA)
-            echo "$req"
-            
-      - name: Perform hourly heartbeat for 'markuapi'
-        run: |
-            req=$(curl -s $RENDER_MARKUAPI)
+            req=$(curl -s $RENDER_MARKUAPIZ)
             echo "$req"
 
-      - name: Perform hourly heartbeat for 'kuryana'
+      - name: Perform heartbeat for 'persona'
         run: |
-            req=$(curl -s $VERCEL_KURYANA)
+            req=$(curl -s $RENDER_PERSONA)
             echo "$req"
