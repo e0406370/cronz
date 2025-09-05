@@ -14,11 +14,29 @@ jobs:
 
     steps:
       - name: Perform heartbeat for 'markuapiz'
+        if: always()
         run: |
-            req=$(curl -s $RENDER_MARKUAPIZ)
-            echo "$req"
+            resp=$(curl -sw '\n%{http_code}' $RENDER_MARKUAPIZ)
+            resp_body=$(echo "$resp" | head -n 1)
+            resp_code=$(echo "$resp" | tail -n 1)
+            
+            echo "$resp_body"
+            echo "$resp_code"
+            
+            if [[ "$resp_code" -ne 200 ]]; then
+                exit 1
+            fi
 
       - name: Perform heartbeat for 'persona'
+        if: always()
         run: |
-            req=$(curl -s $RENDER_PERSONA)
-            echo "$req"
+            resp=$(curl -sw '\n%{http_code}' $RENDER_PERSONA)
+            resp_body=$(echo "$resp" | head -n 1)
+            resp_code=$(echo "$resp" | tail -n 1)
+            
+            echo "$resp_body"
+            echo "$resp_code"
+            
+            if [[ "$resp_code" -ne 200 ]]; then
+                exit 1
+            fi
