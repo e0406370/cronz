@@ -1,4 +1,4 @@
-name: Perform-minimum-validation-for-possible-breakpoints-in-tverplus-userscript
+name: Perform-minimum-validation-for-possible-breakpoints-in-tverplus-userscript-curl
 
 on:
   push:
@@ -18,7 +18,7 @@ env:
   ASSETS_TVERPLUS: ${{ secrets.ASSETS_TVERPLUS }}
 
 jobs:
-  validation:
+  validation-curl:
     runs-on: ubuntu-latest
 
     steps:
